@@ -1,13 +1,12 @@
 import { Button, Stack, TextField } from "@mui/material";
 import type React from "react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const float64Buffer = new ArrayBuffer(8);
 const float64View = new DataView(float64Buffer);
 
 const Calc = () => {
   const [value, setValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleBlur: React.FocusEventHandler<HTMLInputElement> = () => {
     const number = Number(value);
@@ -17,8 +16,6 @@ const Calc = () => {
   };
 
   const incrementFloat64 = () => {
-    if (!inputRef.current) return;
-
     let bigUint64 = float64View.getBigUint64(0);
     bigUint64 = bigUint64 === 0xffffffffffffffffn ? 0n : bigUint64 + 1n;
 
@@ -27,8 +24,6 @@ const Calc = () => {
     setValue(float64View.getFloat64(0).toString());
   };
   const decrementFloat64 = () => {
-    if (!inputRef.current) return;
-
     let bigUint64 = float64View.getBigUint64(0);
     bigUint64 = bigUint64 === 0n ? 0xffffffffffffffffn : bigUint64 - 1n;
 
@@ -54,7 +49,6 @@ const Calc = () => {
         onChange={(event) => setValue(event.target.value)}
         onBlur={handleBlur}
         sx={{ mt: 1 }}
-        inputRef={inputRef}
       />
       <Stack
         direction="row"
