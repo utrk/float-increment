@@ -2,8 +2,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import type React from "react";
 import { useState } from "react";
 
-const float64Buffer = new ArrayBuffer(8);
-const float64View = new DataView(float64Buffer);
+const float64View = new DataView(new ArrayBuffer(8));
 
 const Calc = () => {
   const [literalValue, setLiteralValue] = useState("");
@@ -19,8 +18,7 @@ const Calc = () => {
   };
 
   const incrementFloat64 = () => {
-    let bigUint64 = float64View.getBigUint64(0);
-    bigUint64 = bigUint64 === 0xffffffffffffffffn ? 0n : bigUint64 + 1n;
+    const bigUint64 = (float64View.getBigUint64(0) + 1n) & 0xffffffffffffffffn;
 
     float64View.setBigUint64(0, bigUint64);
 
@@ -29,8 +27,7 @@ const Calc = () => {
   };
 
   const decrementFloat64 = () => {
-    let bigUint64 = float64View.getBigUint64(0);
-    bigUint64 = bigUint64 === 0n ? 0xffffffffffffffffn : bigUint64 - 1n;
+    const bigUint64 = (float64View.getBigUint64(0) - 1n) & 0xffffffffffffffffn;
 
     float64View.setBigUint64(0, bigUint64);
 
