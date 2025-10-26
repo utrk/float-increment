@@ -15,8 +15,7 @@ const Calc = () => {
       (literalValue === "NaN" && !Number.isNaN(float64View.getFloat64(0)))
     ) {
       float64View.setFloat64(0, number);
-      setLiteralValue(number.toString());
-      setBinaryValue(float64View.getBigUint64(0).toString(2).padStart(64, "0"));
+      setFieldValues();
     }
   };
 
@@ -24,18 +23,19 @@ const Calc = () => {
     const bigUint64 = (float64View.getBigUint64(0) + 1n) & 0xffffffffffffffffn;
 
     float64View.setBigUint64(0, bigUint64);
-
-    setLiteralValue(float64View.getFloat64(0).toString());
-    setBinaryValue(float64View.getBigUint64(0).toString(2));
+    setFieldValues();
   };
 
   const decrementFloat64 = () => {
     const bigUint64 = (float64View.getBigUint64(0) - 1n) & 0xffffffffffffffffn;
 
     float64View.setBigUint64(0, bigUint64);
+    setFieldValues();
+  };
 
+  const setFieldValues = () => {
     setLiteralValue(float64View.getFloat64(0).toString());
-    setBinaryValue(float64View.getBigUint64(0).toString(2));
+    setBinaryValue(float64View.getBigUint64(0).toString(2).toString(2).padStart(64, "0"));
   };
 
   const handleClickIncrement = () => {
