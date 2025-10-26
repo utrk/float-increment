@@ -10,11 +10,14 @@ const Calc = () => {
 
   const handleLiteralFieldBlur: React.FocusEventHandler<HTMLInputElement> = () => {
     const number = Number(literalValue);
-    if (!Number.isNaN(number) || !Number.isNaN(float64View.getFloat64(0))) {
+    if (
+      !Number.isNaN(number) ||
+      (literalValue === "NaN" && !Number.isNaN(float64View.getFloat64(0)))
+    ) {
       float64View.setFloat64(0, number);
+      setLiteralValue(number.toString());
+      setBinaryValue(float64View.getBigUint64(0).toString(2));
     }
-    setLiteralValue(number.toString());
-    setBinaryValue(float64View.getBigUint64(0).toString(2));
   };
 
   const incrementFloat64 = () => {
