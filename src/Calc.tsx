@@ -16,7 +16,7 @@ const Calc = () => {
     ) {
       float64View.setFloat64(0, number);
       setLiteralValue(number.toString());
-      setBinaryValue(float64View.getBigUint64(0).toString(2));
+      setBinaryValue(float64View.getBigUint64(0).toString(2).padStart(64, "0"));
     }
   };
 
