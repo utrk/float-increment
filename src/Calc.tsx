@@ -35,7 +35,7 @@ const Calc = () => {
 
   const setFieldValues = () => {
     setLiteralValue(float64View.getFloat64(0).toString());
-    setBinaryValue(float64View.getBigUint64(0).toString(2).toString(2).padStart(64, "0"));
+    setBinaryValue(float64View.getBigUint64(0).toString(2).padStart(64, "0"));
   };
 
   const handleClickIncrement = () => {
