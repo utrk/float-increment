@@ -34,8 +34,11 @@ const Calc = () => {
   };
 
   const setFieldValues = () => {
+    let binaryValue = float64View.getBigUint64(0).toString(2).padStart(64, "0");
+    binaryValue = `${binaryValue.slice(0, 1)} ${binaryValue.slice(1, 12)} ${binaryValue.slice(12)}`;
+
     setLiteralValue(float64View.getFloat64(0).toString());
-    setBinaryValue(float64View.getBigUint64(0).toString(2).padStart(64, "0"));
+    setBinaryValue(binaryValue);
   };
 
   const handleClickIncrement = () => {
