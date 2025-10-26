@@ -64,9 +64,18 @@ const Calc = () => {
         fullWidth
         label="Binary value"
         variant="filled"
+        multiline
         value={binaryValue}
         disabled
         sx={{ mt: 1 }}
+        slotProps={{
+          htmlInput: {
+            sx: {
+              wordBreak: "break-all",
+              fontVariationSettings: '"wdth" 87.5',
+            },
+          },
+        }}
       />
       <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", mt: 1 }}>
         <Button onClick={handleClickIncrement} variant="contained">
