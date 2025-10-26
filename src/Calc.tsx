@@ -54,6 +54,7 @@ const Calc = () => {
         value={literalValue}
         onChange={(event) => setLiteralValue(event.target.value)}
         onBlur={handleLiteralFieldBlur}
+        error={Number.isNaN(Number(literalValue)) && literalValue !== "NaN"}
         sx={{ mt: 1 }}
       />
       <TextField
