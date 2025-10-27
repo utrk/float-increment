@@ -81,6 +81,12 @@ const Calc = () => {
         <Button onClick={() => addToFloat64(-1n)} variant="contained">
           Decrement
         </Button>
+        <Button onClick={() => addToFloat64(4503599627370496n)} variant="outlined">
+          Increment exponent
+        </Button>
+        <Button onClick={() => addToFloat64(-4503599627370496n)} variant="outlined">
+          Decrement exponent
+        </Button>
       </Stack>
     </>
   );
