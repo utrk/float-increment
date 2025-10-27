@@ -36,25 +36,11 @@ const Calc = () => {
     setBinaryValue(binaryValue);
   };
 
-  const incrementFloat64 = () => {
-    const bigUint64 = (float64View.getBigUint64(0) + 1n) & 0xffffffffffffffffn;
+  const addToFloat64 = (amount: bigint) => {
+    const bigUint64 = (float64View.getBigUint64(0) + amount) & 0xffffffffffffffffn;
 
     float64View.setBigUint64(0, bigUint64);
     setFieldValues();
-  };
-
-  const decrementFloat64 = () => {
-    const bigUint64 = (float64View.getBigUint64(0) - 1n) & 0xffffffffffffffffn;
-
-    float64View.setBigUint64(0, bigUint64);
-    setFieldValues();
-  };
-
-  const handleClickIncrement = () => {
-    incrementFloat64();
-  };
-  const handleClickDecrement = () => {
-    decrementFloat64();
   };
 
   return (
@@ -89,10 +75,10 @@ const Calc = () => {
         }}
       />
       <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", mt: 1 }}>
-        <Button onClick={handleClickIncrement} variant="contained">
+        <Button onClick={() => addToFloat64(1n)} variant="contained">
           Increment
         </Button>
-        <Button onClick={handleClickDecrement} variant="contained">
+        <Button onClick={() => addToFloat64(-1n)} variant="contained">
           Decrement
         </Button>
       </Stack>
