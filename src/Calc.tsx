@@ -32,7 +32,10 @@ const Calc = () => {
     let binaryValue = float64View.getBigUint64(0).toString(2).padStart(64, "0");
     binaryValue = `${binaryValue.slice(0, 1)} ${binaryValue.slice(1, 12)} ${binaryValue.slice(12)}`;
 
-    setLiteralValue(float64View.getFloat64(0).toString());
+    const number = float64View.getFloat64(0);
+    const literalValue = Object.is(number, -0) ? "-0" : number.toString();
+
+    setLiteralValue(literalValue);
     setBinaryValue(binaryValue);
   };
 
