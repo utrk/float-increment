@@ -21,7 +21,7 @@ const App = () => {
             mt: 2,
           }}
         >
-          Increment/decrement floating-point number
+          Increment/decrement float64
         </Typography>
         <Calc />
       </Container>

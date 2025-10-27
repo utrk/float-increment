@@ -7,7 +7,7 @@ export default defineConfig({
     assetPrefix: "/float-increment/",
   },
   html: {
-    title: "Increment/decrement floating-point number",
+    title: "Increment/decrement float64",
     tags: [
       {
         tag: "link",
