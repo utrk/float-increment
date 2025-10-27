@@ -19,6 +19,23 @@ const Calc = () => {
     }
   };
 
+  const handleBinaryFieldBlur: React.FocusEventHandler<HTMLInputElement> = () => {
+    const spaceRemovedValue = binaryValue.replaceAll(" ", "");
+    if (/^[01]{64}$/.test(spaceRemovedValue)) {
+      const bigUint64 = BigInt(`0b${spaceRemovedValue}`);
+      float64View.setBigUint64(0, bigUint64);
+      setFieldValues();
+    }
+  };
+
+  const setFieldValues = () => {
+    let binaryValue = float64View.getBigUint64(0).toString(2).padStart(64, "0");
+    binaryValue = `${binaryValue.slice(0, 1)} ${binaryValue.slice(1, 12)} ${binaryValue.slice(12)}`;
+
+    setLiteralValue(float64View.getFloat64(0).toString());
+    setBinaryValue(binaryValue);
+  };
+
   const incrementFloat64 = () => {
     const bigUint64 = (float64View.getBigUint64(0) + 1n) & 0xffffffffffffffffn;
 
@@ -31,14 +48,6 @@ const Calc = () => {
 
     float64View.setBigUint64(0, bigUint64);
     setFieldValues();
-  };
-
-  const setFieldValues = () => {
-    let binaryValue = float64View.getBigUint64(0).toString(2).padStart(64, "0");
-    binaryValue = `${binaryValue.slice(0, 1)} ${binaryValue.slice(1, 12)} ${binaryValue.slice(12)}`;
-
-    setLiteralValue(float64View.getFloat64(0).toString());
-    setBinaryValue(binaryValue);
   };
 
   const handleClickIncrement = () => {
@@ -63,10 +72,12 @@ const Calc = () => {
       <TextField
         fullWidth
         label="Binary value"
-        variant="filled"
+        variant="outlined"
         multiline
         value={binaryValue}
-        disabled
+        onChange={(event) => setBinaryValue(event.target.value)}
+        onBlur={handleBinaryFieldBlur}
+        error={!/^[01]{64}$|^$/.test(binaryValue.replaceAll(" ", ""))}
         sx={{ mt: 1 }}
         slotProps={{
           htmlInput: {
